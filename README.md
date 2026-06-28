@@ -12,7 +12,7 @@ This project allows you to run **Scratch 2 Legacy** using the **Ruffle** Flash p
 
 To start scratching in Scratch 2, simply visit the following link in your browser:
 
-[Start Scratching in Scratch 2](https://noahscratch493.github.io/Scratch-2-Legacy)
+[Start Scratching in Scratch 2](https://scratch2.cattymod.app)
 
 This will load **Scratch 2 Legacy** in your browser, powered by the **Ruffle** Flash emulator.
 

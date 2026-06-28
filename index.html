@@ -2,65 +2,57 @@
 <html>
     <head>
         <meta charset='utf8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Scratch 2 Legacy</title>
         <link rel="icon" href="favicon.ico" type="image/x-icon">
+
         <style>
-            /* Ensure the body and html elements fill the entire window */
+            /* Remove all default spacing + prevent scroll */
             html, body {
-                height: 100%;
                 margin: 0;
                 padding: 0;
-            }
-
-            /* The container will take up the full width and height of the page */
-            #ruffle {
                 width: 100%;
                 height: 100%;
+                overflow: hidden;
+            }
+
+            /* Make sure container fully fills screen */
+            #ruffle {
+                width: 100vw;
+                height: 100vh;
+                overflow: hidden;
             }
         </style>
     </head>
+
     <body>
-        <!-- Container for the Ruffle player -->
         <div id="ruffle"></div>
 
         <script>
-            // Ensure RufflePlayer is available
             window.RufflePlayer = window.RufflePlayer || {};
 
             window.addEventListener("DOMContentLoaded", () => {
-                // Initialize the newest version of Ruffle
                 let ruffle = window.RufflePlayer.newest();
-
-                // Create the player
                 let player = ruffle.createPlayer();
 
-                // Get the container where the player will be added
-                let container = document.getElementById("ruffle");
+                document.getElementById("ruffle").appendChild(player);
 
-                // Append the player to the container
-                container.appendChild(player);
-
-                // Set the width and height of the player to fill the container (100% of the page)
                 player.style.width = "100%";
                 player.style.height = "100%";
 
-                // Load the Scratch 2 Legacy SWF file
                 player.load("https://scratch2.cattymod.app/Scratch_2_legacy.swf");
 
-                // Wait until the SWF is fully loaded, then trigger play manually
                 player.addEventListener("load", () => {
-                    player.play();  // Manually start the SWF
+                    player.play();
                 });
             });
 
-            // Warn user if they try to leave the page
             window.addEventListener("beforeunload", function (e) {
-                e.preventDefault(); // Required for some browsers
-                e.returnValue = "Your project might not be saved."; // Show this message in the dialog
+                e.preventDefault();
+                e.returnValue = "Your project might not be saved.";
             });
         </script>
 
-        <!-- Correct script for Ruffle -->
         <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
     </body>
 </html>

@@ -1,0 +1,23 @@
+{
+  "name": "Scratch 2 Legacy",
+  "short_name": "Scratch 2",
+  "description": "Run Scratch 2 anytime, anywhere!",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#2b2b2b",
+  "theme_color": "#2b2b2b",
+  "orientation": "landscape-primary",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

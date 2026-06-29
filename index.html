@@ -3,7 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Scratch 2 Legacy</title>
+
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#2b2b2b">
 
     <style>
         html, body {
@@ -11,6 +15,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            background: #2b2b2b;
         }
 
         #ruffle {
@@ -21,14 +26,14 @@
 
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
 </head>
+
 <body>
 
 <div id="ruffle"></div>
 
 <script>
-window.RufflePlayer = window.RufflePlayer || {};
-
 window.addEventListener("load", async () => {
+
     const ruffle = window.RufflePlayer.newest();
     const player = ruffle.createPlayer();
 
@@ -38,35 +43,22 @@ window.addEventListener("load", async () => {
     document.getElementById("ruffle").appendChild(player);
 
     try {
-        const response = await fetch(
-            "https://scratch2.cattymod.app/Scratch%202.0%20v461.swf"
-        );
+        const res = await fetch("https://scratch2.cattymod.app/Scratch%202.0%20v461.swf");
+        const blob = await res.blob();
+        const url = URL.createObjectURL(blob);
 
-        if (!response.ok) {
-            throw new Error("Failed to fetch SWF.");
-        }
-
-        const blob = await response.blob();
-        const blobUrl = URL.createObjectURL(blob);
-
-        await player.load(blobUrl);
+        await player.load(url);
         player.play();
 
-        // Optional: free the blob after it's loaded
-        player.addEventListener("load", () => {
-            URL.revokeObjectURL(blobUrl);
-        }, { once: true });
-
-    } catch (err) {
-        console.error(err);
-        alert("Couldn't load the Scratch editor.");
+    } catch (e) {
+        console.error("Failed to load SWF:", e);
+        alert("Scratch 2 failed to load.");
     }
 });
 
-window.addEventListener("beforeunload", function (e) {
-    e.preventDefault();
-    e.returnValue = "Your project might not be saved.";
-});
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/sw.js");
+}
 </script>
 
 </body>

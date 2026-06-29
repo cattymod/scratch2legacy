@@ -6,7 +6,7 @@
 
     <title>Scratch 2 Legacy</title>
 
-    <meta name="theme-color" content="#2b2b2b">
+    <meta name="theme-color" content="#f7f7f7">
 
     <style>
         html, body {
@@ -15,11 +15,79 @@
             height: 100%;
             overflow: hidden;
             background: #2b2b2b;
+            font-family: Arial, sans-serif;
         }
 
         #ruffle {
             width: 100vw;
             height: 100vh;
+        }
+
+        /* ===== BOOT SCREEN ===== */
+        #boot {
+            position: fixed;
+            inset: 0;
+            background: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #bootIcon {
+            width: 96px;
+            height: 96px;
+            border-radius: 16px;
+            margin-bottom: 18px;
+        }
+
+        #bootTitle {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffab19;
+            margin-bottom: 20px;
+        }
+
+        #barContainer {
+            width: 220px;
+            height: 10px;
+            background: #ddd;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        #bar {
+            width: 40%;
+            height: 100%;
+            background: #ffab19;
+            animation: load 1.2s infinite ease-in-out;
+        }
+
+        @keyframes load {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(300%); }
+        }
+
+        #status {
+            margin-top: 14px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* NEW: Ruffle credit line */
+        #powered {
+            margin-top: 10px;
+            font-size: 11px;
+            color: #888;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        #powered img {
+            width: auto;
+            height: 14px;
         }
     </style>
 
@@ -28,6 +96,25 @@
 
 <body>
 
+<!-- BOOT SCREEN -->
+<div id="boot">
+    <img id="bootIcon" src="https://scratch2.cattymod.app/appicons/AppIcon128.png">
+    <div id="bootTitle">Scratch 2 Legacy</div>
+
+    <div id="barContainer">
+        <div id="bar"></div>
+    </div>
+
+    <div id="status">Starting Editor...</div>
+
+    <!-- NEW: Powered by Ruffle -->
+    <div id="powered">
+        <span>Powered by</span>
+        <img src="https://ruffle.rs/demo/logo.svg" alt="Ruffle">
+    </div>
+</div>
+
+<!-- RUFFLE -->
 <div id="ruffle"></div>
 
 <script>
@@ -49,9 +136,20 @@ window.addEventListener("load", async () => {
         await player.load(url);
         player.play();
 
+        // Smooth boot transition
+        setTimeout(() => {
+            const boot = document.getElementById("boot");
+            boot.style.transition = "opacity 0.4s ease";
+            boot.style.opacity = "0";
+
+            setTimeout(() => {
+                boot.remove();
+            }, 400);
+        }, 800);
+
     } catch (e) {
         console.error("Failed to load SWF:", e);
-        alert("Scratch 2 failed to load.");
+        document.getElementById("status").textContent = "Failed to load Scratch 2";
     }
 });
 

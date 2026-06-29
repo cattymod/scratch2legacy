@@ -18,7 +18,7 @@ This will load **Scratch 2 Legacy** in your browser, powered by the **Ruffle** F
 
 ## Credits
 
-This project contains ScratchCat and other sprites/costumes/backdrops, which are by [Scratch](https://scratch.mit.edu).
+This project uses an offical Scratch 2 Editor SWF which contains assets (sprites, costumes, etc.) which are created by them. This project, Scratch 2 Legacy, is unofficial.
 
 The SWF is from [GUI-CUI/Scratch2.0versions](https://github.com/GUI-CUI/Scratch2.0versions/blob/main/Scratch%202.0%20v461.swf)
 

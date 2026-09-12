@@ -24,6 +24,7 @@ Scratch is developed by the Lifelong Kindergarten Group at the MIT Media Lab. Se
 
 Dango (The Default Sprite in Scratch 2 Legacy and CattyMod's Mascot) and Lucide Icons for the "Home" icon are credited in [CattyMod Credits](https://studio.cattymod.app/credits.html).
 
+ScratchCat, Giga, Gobo, Tera, Nano, Zepto and Milli are all trademarks of the Scratch Foundation and are not owned by CattyMod.
 ## License
 
 This project is open-source and available under the MIT License. See the [LICENSE](LICENSE) file for more information.

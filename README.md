@@ -20,7 +20,7 @@ This will load **Scratch 2 Legacy** in your browser, powered by the **Ruffle** F
 
 The SWF was generated using [this converter](https://amys.website/scratch).
 
-Scratch 2.0 is by the Scratch Foundation. See [scratchfoundation/scratch-flash](https://github.com/scratchfoundation/scratch-flash).
+Scratch is developed by the Lifelong Kindergarten Group at the MIT Media Lab. See http://scratch.mit.edu. You can also check out [scratchfoundation/scratch-flash](https://github.com/scratchfoundation/scratch-flash).
 
 Dango (The Default Sprite in Scratch 2 Legacy and CattyMod's Mascot) and Lucide Icons for the "Home" icon are credited in [CattyMod Credits](https://studio.cattymod.app/credits.html).
 

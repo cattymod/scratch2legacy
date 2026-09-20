@@ -22,9 +22,12 @@ The SWF was generated using [this converter](https://amys.website/scratch).
 
 Scratch is developed by the Lifelong Kindergarten Group at the MIT Media Lab. See http://scratch.mit.edu. You can also check out [scratchfoundation/scratch-flash](https://github.com/scratchfoundation/scratch-flash).
 
-Dango (The Default Sprite in Scratch 2 Legacy and CattyMod's Mascot) and Lucide Icons for the "Home" icon are credited in [CattyMod Credits](https://studio.cattymod.app/credits.html).
+Lucide Icons was used for the "Home" icon are credited in [CattyMod Credits](https://studio.cattymod.app/credits.html).
 
 ScratchCat, Giga, Gobo, Tera, Nano, Zepto and Milli are all trademarks of the Scratch Foundation and are not owned by CattyMod.
+
+CattyMod and Scratch 2 Legacy are **not** affiliated with the Scratch Foundation.
+
 ## License
 
 This project is open-source and available under the MIT License. See the [LICENSE](LICENSE) file for more information.

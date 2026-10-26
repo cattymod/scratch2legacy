@@ -1,0 +1,21 @@
+{
+  "short_name": "Scratch 2 Legacy",
+  "name": "Scratch 2",
+  "description": "Scratch 2, Anytime, Anywhere!",
+  "icons": [
+    {
+      "src": "appicons/AppIcon128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "appicons/AppIcon48.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#f7f7f7",
+  "display": "standalone",
+  "theme_color": "#f7f7f7"
+}

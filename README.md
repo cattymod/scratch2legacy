@@ -22,8 +22,6 @@ The SWF is from [GUI-CUI/Scratch2.0versions](https://github.com/GUI-CUI/Scratch2
 
 Scratch is developed by the Lifelong Kindergarten Group at the MIT Media Lab. See http://scratch.mit.edu. You can also check out [scratchfoundation/scratch-flash](https://github.com/scratchfoundation/scratch-flash).
 
-Lucide Icons was used for the "Home" icon and are credited in [CattyMod Credits](https://studio.cattymod.app/credits.html).
-
 ScratchCat, Pico, Giga, Gobo, Tera, Nano, Zepto and Milli are all trademarks of the Scratch Foundation and are not owned by CattyMod.
 
 CattyMod and Scratch 2 Legacy are **not** affiliated with the Scratch Foundation.

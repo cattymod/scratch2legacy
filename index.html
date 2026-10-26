@@ -1,0 +1,1079 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Scratch 2 Legacy</title>
+    <meta name="theme-color" content="#ffab19">
+    <meta name="description" content="Bring back Scratch 2.0 in your browser with Scratch 2 Legacy, powered by Ruffle.">
+
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" href="appicons/AppIcon128.png">
+    <link rel="icon" href="https://scratch2.cattymod.app/appicons/AppIcon128.png">
+
+    <style>
+        :root {
+            --orange: #ffab19;
+            --orange-dark: #ec9b12;
+            --blue: #4c97ff;
+            --purple: #9966ff;
+            --green: #59c059;
+            --red: #ff6680;
+            --yellow: #ffbf00;
+            --text: #575e75;
+            --muted: #858b9e;
+            --background: #f7f7f7;
+            --white: #ffffff;
+            --border: #e5e5e5;
+            --radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Helvetica Neue", Arial, sans-serif;
+            color: var(--text);
+            background: var(--background);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button, a {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--orange);
+            box-shadow: 0 2px 5px #00000014;
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            min-height: 62px;
+            margin: auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            color: white;
+            font-size: 19px;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .nav-links a {
+            padding: 9px 13px;
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            font-weight: 700;
+            transition: background .2s;
+        }
+
+        .nav-links a:hover {
+            background: #ffffff25;
+        }
+
+        .nav-links .nav-start {
+            color: #8b5900;
+            background: white;
+        }
+
+        .nav-links .nav-start:hover {
+            background: #fff6e3;
+        }
+
+        /* Hero */
+
+        .hero {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #ffb52b, #ff980f);
+            color: white;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 1180px;
+            min-height: 490px;
+            margin: auto;
+            padding: 76px 24px;
+            display: grid;
+            grid-template-columns: 1.1fr .9fr;
+            align-items: center;
+            gap: 52px;
+        }
+
+        .hero h1 {
+            margin: 0 0 18px;
+            font-size: clamp(38px, 5.5vw, 65px);
+            line-height: 1.08;
+            letter-spacing: -2px;
+            color: white;
+        }
+
+        .hero h1 span {
+            color: #fff4c9;
+        }
+
+        .hero p {
+            max-width: 560px;
+            margin: 0 0 28px;
+            font-size: 18px;
+            line-height: 1.7;
+            color: #fffaf0;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            padding: 7px 12px;
+            border: 1px solid #ffffff45;
+            border-radius: 30px;
+            background: #ffffff20;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: .6px;
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #b8ff9b;
+            box-shadow: 0 0 0 3px #b8ff9b35;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 13px 21px;
+            border: 0;
+            border-radius: 9px;
+            font: inherit;
+            font-size: 15px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .18s, box-shadow .18s, background .18s;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .button-primary {
+            color: #8b5900;
+            background: white;
+            box-shadow: 0 4px 0 #d68b16;
+        }
+
+        .button-primary:hover {
+            background: #fff8e8;
+            box-shadow: 0 6px 0 #d68b16;
+        }
+
+        .button-outline {
+            color: white;
+            border: 2px solid #ffffff80;
+            background: #ffffff12;
+        }
+
+        .button-outline:hover {
+            background: #ffffff25;
+        }
+
+        .hero-note {
+            margin-top: 20px;
+            font-size: 12px;
+            color: #fff5d9;
+        }
+
+        /* Decorative Scratch blocks */
+
+        .block-scene {
+            position: relative;
+            min-height: 310px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .block {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 17px 20px;
+            border-radius: 10px;
+            color: white;
+            font-size: 15px;
+            font-weight: 800;
+            box-shadow: 0 5px 0 #00000020, 0 12px 24px #7a420022;
+            user-select: none;
+        }
+
+        .block::before {
+            content: "";
+            position: absolute;
+            top: -6px;
+            left: 23px;
+            width: 22px;
+            height: 12px;
+            border-radius: 5px 5px 0 0;
+            background: inherit;
+        }
+
+        .block-orange {
+            top: 20px;
+            left: 6%;
+            background: #ffab19;
+            transform: rotate(-6deg);
+        }
+
+        .block-blue {
+            top: 110px;
+            right: 0;
+            background: #4c97ff;
+            transform: rotate(5deg);
+        }
+
+        .block-purple {
+            bottom: 36px;
+            left: 0;
+            background: #9966ff;
+            transform: rotate(3deg);
+        }
+
+        .block-green {
+            right: 3%;
+            bottom: 4px;
+            background: #59c059;
+            transform: rotate(-5deg);
+        }
+
+        .scratch-window {
+            position: relative;
+            z-index: 2;
+            width: 235px;
+            padding: 12px;
+            border: 5px solid #ffffff;
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 18px 45px #8d4e1835;
+            transform: rotate(-3deg);
+        }
+
+        .window-bar {
+            display: flex;
+            gap: 5px;
+            margin-bottom: 11px;
+        }
+
+        .window-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+        }
+
+        .window-dot:nth-child(1) { background: #ff6680; }
+        .window-dot:nth-child(2) { background: #ffbf00; }
+        .window-dot:nth-child(3) { background: #59c059; }
+
+        .stage {
+            position: relative;
+            height: 160px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #e8e8e8;
+            border-radius: 7px;
+            background: linear-gradient(#c5f0ff 0 65%, #9de8a0 65%);
+        }
+
+        .sun {
+            position: absolute;
+            top: 17px;
+            right: 24px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #ffce55;
+        }
+
+        .cloud {
+            position: absolute;
+            top: 33px;
+            left: 23px;
+            width: 45px;
+            height: 13px;
+            border-radius: 20px;
+            background: white;
+        }
+
+        .cloud::before, .cloud::after {
+            content: "";
+            position: absolute;
+            bottom: 3px;
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            background: white;
+        }
+
+        .cloud::before { left: 5px; }
+        .cloud::after { right: 4px; }
+
+        .cat {
+            position: relative;
+            z-index: 2;
+            width: 72px;
+            height: 64px;
+            animation: cat-bob 2s ease-in-out infinite;
+        }
+
+        @keyframes cat-bob {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-7px) rotate(3deg); }
+        }
+
+        .stage-label {
+            padding-top: 8px;
+            text-align: center;
+            color: #858b9e;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        /* Main content */
+
+        .container {
+            max-width: 1120px;
+            margin: auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 76px 0;
+        }
+
+        .section-heading {
+            margin-bottom: 38px;
+            text-align: center;
+        }
+
+        .section-heading h2 {
+            margin: 0 0 10px;
+            color: #4b5064;
+            font-size: clamp(27px, 4vw, 36px);
+            line-height: 1.25;
+            letter-spacing: -.7px;
+        }
+
+        .section-heading p {
+            max-width: 620px;
+            margin: auto;
+            color: var(--muted);
+            font-size: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+            box-shadow: 0 3px 0 #00000004;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 9px 24px #00000009;
+        }
+
+        .feature-icon {
+            width: 49px;
+            height: 49px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 18px;
+            border-radius: 12px;
+            font-size: 24px;
+        }
+
+        .feature-icon.orange { background: #fff0d2; }
+        .feature-icon.blue { background: #e5f0ff; }
+        .feature-icon.green { background: #e3f8e3; }
+
+        .feature-card h3 {
+            margin: 0 0 8px;
+            color: #4b5064;
+            font-size: 18px;
+        }
+
+        .feature-card p {
+            margin: 0;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.75;
+        }
+
+        /* Start section */
+
+        .start-section {
+            padding: 0 0 76px;
+        }
+
+        .start-card {
+            position: relative;
+            overflow: hidden;
+            padding: 46px 32px;
+            border-radius: 16px;
+            background: #4c97ff;
+            color: white;
+            text-align: center;
+        }
+
+        .start-card::before, .start-card::after {
+            content: "";
+            position: absolute;
+            width: 160px;
+            height: 70px;
+            border-radius: 13px;
+            background: #ffffff12;
+            transform: rotate(-25deg);
+        }
+
+        .start-card::before {
+            top: -30px;
+            left: -35px;
+        }
+
+        .start-card::after {
+            right: -35px;
+            bottom: -25px;
+            transform: rotate(25deg);
+        }
+
+        .start-card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .start-card h2 {
+            margin: 0 0 12px;
+            font-size: clamp(26px, 4vw, 35px);
+        }
+
+        .start-card p {
+            max-width: 570px;
+            margin: 0 auto 24px;
+            color: #edf5ff;
+            font-size: 15px;
+        }
+
+        /* Credits */
+
+        .credits-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 22px;
+        }
+
+        .info-card {
+            padding: 26px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: white;
+        }
+
+        .info-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 13px;
+            color: #4b5064;
+            font-size: 19px;
+        }
+
+        .info-card p {
+            margin: 0 0 12px;
+            color: var(--muted);
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+
+        .info-card p:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-card a {
+            color: #3785e8;
+            font-weight: 700;
+            text-decoration: underline;
+            text-decoration-color: #3785e850;
+            text-underline-offset: 3px;
+        }
+
+        .info-card a:hover {
+            color: #1765c6;
+        }
+
+        .notice {
+            margin-top: 22px;
+            padding: 18px 21px;
+            border-left: 4px solid var(--orange);
+            border-radius: 6px;
+            background: #fff5e2;
+            color: #85652e;
+            font-size: 13px;
+        }
+
+        /* Footer */
+
+        footer {
+            border-top: 1px solid var(--border);
+            background: white;
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: auto;
+            padding: 27px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+        }
+
+        .footer-brand {
+            color: #555b70;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .footer-copy {
+            color: #9297a6;
+            font-size: 12px;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #777e91;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .footer-links a:hover {
+            color: var(--orange-dark);
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 800px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding-top: 65px;
+                padding-bottom: 35px;
+            }
+
+            .hero-copy {
+                text-align: center;
+            }
+
+            .hero p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-actions {
+                justify-content: center;
+            }
+
+            .block-scene {
+                min-height: 310px;
+                max-width: 440px;
+                width: 100%;
+                margin: auto;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                display: grid;
+                grid-template-columns: 55px 1fr;
+                column-gap: 15px;
+                padding: 21px;
+            }
+
+            .feature-icon {
+                grid-row: span 2;
+                margin: 0;
+            }
+
+            .feature-card h3 {
+                align-self: end;
+            }
+
+            .credits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 58px 0;
+            }
+
+            .start-section {
+                padding-bottom: 58px;
+            }
+        }
+
+        @media (max-width: 520px) {
+            .nav-inner {
+                min-height: 58px;
+                padding: 0 14px;
+                gap: 8px;
+            }
+
+            .brand {
+                gap: 7px;
+                font-size: 15px;
+            }
+
+            .brand img {
+                width: 29px;
+                height: 29px;
+            }
+
+            .nav-links {
+                gap: 2px;
+            }
+
+            .nav-links a {
+                padding: 8px;
+                font-size: 12px;
+            }
+
+            .nav-links a:not(.nav-start) {
+                display: none;
+            }
+
+            .hero-inner {
+                padding: 52px 19px 30px;
+            }
+
+            .hero h1 {
+                font-size: 43px;
+                letter-spacing: -1.5px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            .block-scene {
+                min-height: 280px;
+                transform: scale(.93);
+                transform-origin: top center;
+                margin-bottom: -15px;
+            }
+
+            .block {
+                padding: 13px;
+                font-size: 12px;
+            }
+
+            .scratch-window {
+                width: 205px;
+            }
+
+            .stage {
+                height: 140px;
+            }
+
+            .container {
+                padding: 0 17px;
+            }
+
+            .section-heading {
+                margin-bottom: 27px;
+            }
+
+            .feature-card {
+                padding: 19px;
+            }
+
+            .start-card {
+                padding: 35px 20px;
+            }
+
+            .footer-inner {
+                padding: 24px 18px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: .01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: .01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <header class="navbar">
+        <nav class="nav-inner" aria-label="Main navigation">
+            <a class="brand" href="#home">
+                <img
+                    src="https://scratch2.cattymod.app/appicons/AppIcon128.png"
+                    alt=""
+                >
+                <span>Scratch 2 Legacy</span>
+            </a>
+
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#credits">Credits</a>
+                <a class="nav-start" href="https://scratch2.cattymod.app/editor">
+                    Start Scratching ↗
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Hero -->
+        <section class="hero" id="home">
+            <div class="hero-inner">
+
+                <div class="hero-copy">
+                    <div class="eyebrow">
+                        <span class="status-dot"></span>
+                        The classic editor, brought back
+                    </div>
+
+                    <h1>Rediscover <span>Scratch 2.</span></h1>
+
+                    <p>
+                        Remember the classic Scratch editor?
+                        Bring back the nostalgia and create, explore,
+                        and play with Scratch 2 Legacy, right in your browser.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a
+                            class="button button-primary"
+                            href="https://scratch2.cattymod.app/editor"
+                        >
+                            ▶ Start Scratching
+                        </a>
+
+                        <a class="button button-outline" href="#features">
+                            Explore Features ↓
+                        </a>
+                    </div>
+
+                    <div class="hero-note">
+                        No Flash installation needed. Powered by Ruffle.
+                    </div>
+                </div>
+
+                <!-- Decorative Scratch editor illustration -->
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/-SjuiawRMU4?si=Ks8W9E_WvUFZcjI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+        </section>
+
+        <!-- Features -->
+        <section class="section" id="features">
+            <div class="container">
+
+                <div class="section-heading">
+                    <h2>Classic Scratch. Modern Browser.</h2>
+                    <p>
+                        Enjoy the familiar Scratch 2 experience with
+                        technology that works in modern browsers.
+                    </p>
+                </div>
+
+                <div class="features">
+
+                    <article class="feature-card">
+                        <div class="feature-icon orange">⚡</div>
+                        <h3>Autoplay Support</h3>
+                        <p>
+                            The Scratch 2 Legacy player loads its SWF
+                            automatically, so you can get into the editor
+                            without unnecessary extra steps.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon blue">↗</div>
+                        <h3>Responsive Design</h3>
+                        <p>
+                            The player adapts to your browser window,
+                            helping the classic editor fit your available
+                            screen space.
+                        </p>
+                    </article>
+
+                    <article class="feature-card">
+                        <div class="feature-icon green">⛶</div>
+                        <h3>Full-Screen Experience</h3>
+                        <p>
+                            Enjoy a spacious editor that scales with
+                            your browser dimensions for an immersive
+                            Scratch 2 experience.
+                        </p>
+                    </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Start Scratching -->
+        <section class="start-section" id="start">
+            <div class="container">
+                <div class="start-card">
+                    <div class="start-card-content">
+                        <h2>Ready to start scratching?</h2>
+
+                        <p>
+                            Jump straight into Scratch 2 Legacy.
+                            Revisit the classic editor and explore
+                            its block-based creative environment.
+                        </p>
+
+                        <a
+                            class="button button-primary"
+                            href="https://scratch2.cattymod.app/editor"
+                        >
+                            Open Scratch 2 Legacy ↗
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Credits and License -->
+        <section class="section" id="credits">
+            <div class="container">
+
+                <div class="section-heading">
+                    <h2>Credits &amp; Information</h2>
+                    <p>
+                        Giving credit to the projects, organizations,
+                        and tools that help make Scratch 2 Legacy possible.
+                    </p>
+                </div>
+
+                <div class="credits-grid">
+
+                    <article class="info-card">
+                        <h3>✦ Project Credits</h3>
+
+                        <p>
+                            <strong>SWF source:</strong>
+                            <a
+                                href="https://github.com/GUI-CUI/Scratch2.0versions/blob/main/Scratch%202.0%20v461.swf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                GUI-CUI/Scratch2.0versions
+                            </a>
+                        </p>
+
+                        <p>
+                            <strong>Flash emulator:</strong>
+                            <a
+                                href="https://ruffle.rs/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Ruffle
+                            </a>
+                        </p>
+
+                        <p>
+                            <strong>Scratch development:</strong>
+                            The Lifelong Kindergarten Group at the
+                            MIT Media Lab.
+                            <a
+                                href="https://scratch.mit.edu/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                Scratch website
+                            </a>
+                        </p>
+
+                        <p>
+                            <strong>Scratch Flash:</strong>
+                            <a
+                                href="https://github.com/scratchfoundation/scratch-flash"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                scratchfoundation/scratch-flash
+                            </a>
+                        </p>
+
+                        <p>
+                            <strong>Icons:</strong>
+                            Lucide Icons.
+                            <a
+                                href="https://studio.cattymod.app/credits.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                CattyMod Credits
+                            </a>
+                        </p>
+                    </article>
+
+                    <article class="info-card">
+                        <h3>ⓘ About This Project</h3>
+
+                        <p>
+                            ScratchCat, Pico, Giga, Gobo, Tera, Nano,
+                            Zepto, and Milli are trademarks of the
+                            Scratch Foundation. They are not owned by CattyMod.
+                        </p>
+
+                        <p>
+                            CattyMod and Scratch 2 Legacy are not
+                            affiliated with the Scratch Foundation.
+                        </p>
+
+                        <p>
+                            <strong>License:</strong> This project is
+                            open-source and available under the MIT License.
+                        </p>
+
+                        <p>
+                            <a href="LICENSE">Read the MIT License ↗</a>
+                        </p>
+                    </article>
+
+                </div>
+
+                <div class="notice">
+                    <strong>Important:</strong>
+                    Scratch 2 Legacy is an independent project.
+                    Scratch and its associated trademarks belong to
+                    their respective owners. This project is not an
+                    official Scratch Foundation product.
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+
+            <div>
+                <div class="footer-brand">
+                    Scratch 2 Legacy
+                </div>
+                <div class="footer-copy">
+                    A little piece of Scratch history.
+                </div>
+            </div>
+
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#features">Features</a>
+                <a href="#credits">Credits</a>
+                <a href="LICENSE">MIT License</a>
+            </div>
+
+            <div class="footer-copy">
+                Powered by Ruffle
+            </div>
+
+        </div>
+    </footer>
+
+</body>
+</html>

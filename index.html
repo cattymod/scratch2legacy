@@ -45,6 +45,12 @@
             color: var(--text);
             background: var(--background);
             line-height: 1.6;
+            overflow-wrap: break-word;
+        }
+
+        img,
+        iframe {
+            max-width: 100%;
         }
 
         a {
@@ -134,13 +140,18 @@
             position: relative;
             z-index: 1;
             max-width: 1180px;
+            min-width: 0;
             min-height: 490px;
             margin: auto;
             padding: 76px 24px;
             display: grid;
-            grid-template-columns: 1.1fr .9fr;
+            grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr);
             align-items: center;
             gap: 52px;
+        }
+
+        .hero-copy {
+            min-width: 0;
         }
 
         .hero h1 {
@@ -181,6 +192,7 @@
         .status-dot {
             width: 8px;
             height: 8px;
+            flex-shrink: 0;
             border-radius: 50%;
             background: #b8ff9b;
             box-shadow: 0 0 0 3px #b8ff9b35;
@@ -205,6 +217,7 @@
             font: inherit;
             font-size: 15px;
             font-weight: 800;
+            text-align: center;
             cursor: pointer;
             transition: transform .18s, box-shadow .18s, background .18s;
         }
@@ -240,166 +253,31 @@
             color: #fff5d9;
         }
 
-        /* Decorative Scratch blocks */
+        /* Responsive YouTube video */
 
-        .block-scene {
-            position: relative;
-            min-height: 310px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .block {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 17px 20px;
-            border-radius: 10px;
-            color: white;
-            font-size: 15px;
-            font-weight: 800;
-            box-shadow: 0 5px 0 #00000020, 0 12px 24px #7a420022;
-            user-select: none;
-        }
-
-        .block::before {
-            content: "";
-            position: absolute;
-            top: -6px;
-            left: 23px;
-            width: 22px;
-            height: 12px;
-            border-radius: 5px 5px 0 0;
-            background: inherit;
-        }
-
-        .block-orange {
-            top: 20px;
-            left: 6%;
-            background: #ffab19;
-            transform: rotate(-6deg);
-        }
-
-        .block-blue {
-            top: 110px;
-            right: 0;
-            background: #4c97ff;
-            transform: rotate(5deg);
-        }
-
-        .block-purple {
-            bottom: 36px;
-            left: 0;
-            background: #9966ff;
-            transform: rotate(3deg);
-        }
-
-        .block-green {
-            right: 3%;
-            bottom: 4px;
-            background: #59c059;
-            transform: rotate(-5deg);
-        }
-
-        .scratch-window {
-            position: relative;
-            z-index: 2;
-            width: 235px;
-            padding: 12px;
-            border: 5px solid #ffffff;
-            border-radius: 16px;
-            background: white;
-            box-shadow: 0 18px 45px #8d4e1835;
-            transform: rotate(-3deg);
-        }
-
-        .window-bar {
-            display: flex;
-            gap: 5px;
-            margin-bottom: 11px;
-        }
-
-        .window-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-        }
-
-        .window-dot:nth-child(1) { background: #ff6680; }
-        .window-dot:nth-child(2) { background: #ffbf00; }
-        .window-dot:nth-child(3) { background: #59c059; }
-
-        .stage {
-            position: relative;
-            height: 160px;
+        .hero-video {
+            width: 100%;
+            max-width: 560px;
+            min-width: 0;
+            aspect-ratio: 16 / 9;
+            justify-self: center;
             overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border: 2px solid #e8e8e8;
-            border-radius: 7px;
-            background: linear-gradient(#c5f0ff 0 65%, #9de8a0 65%);
+            border-radius: 12px;
+            background: #000;
+            box-shadow: 0 18px 45px #8d4e1835;
         }
 
-        .sun {
-            position: absolute;
-            top: 17px;
-            right: 24px;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #ffce55;
-        }
-
-        .cloud {
-            position: absolute;
-            top: 33px;
-            left: 23px;
-            width: 45px;
-            height: 13px;
-            border-radius: 20px;
-            background: white;
-        }
-
-        .cloud::before, .cloud::after {
-            content: "";
-            position: absolute;
-            bottom: 3px;
-            width: 21px;
-            height: 21px;
-            border-radius: 50%;
-            background: white;
-        }
-
-        .cloud::before { left: 5px; }
-        .cloud::after { right: 4px; }
-
-        .cat {
-            position: relative;
-            z-index: 2;
-            width: 72px;
-            height: 64px;
-            animation: cat-bob 2s ease-in-out infinite;
-        }
-
-        @keyframes cat-bob {
-            0%, 100% { transform: translateY(0) rotate(-3deg); }
-            50% { transform: translateY(-7px) rotate(3deg); }
-        }
-
-        .stage-label {
-            padding-top: 8px;
-            text-align: center;
-            color: #858b9e;
-            font-size: 10px;
-            font-weight: 700;
+        .hero-video iframe {
+            display: block;
+            width: 100%;
+            height: 100%;
+            border: 0;
         }
 
         /* Main content */
 
         .container {
+            width: 100%;
             max-width: 1120px;
             margin: auto;
             padding: 0 24px;
@@ -429,6 +307,8 @@
             font-size: 15px;
         }
 
+        /* Features */
+
         .features {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -436,6 +316,7 @@
         }
 
         .feature-card {
+            min-width: 0;
             padding: 26px;
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -477,6 +358,88 @@
             line-height: 1.75;
         }
 
+        /* Made by CattyMod */
+
+        .cattymod-section {
+            padding: 0 0 76px;
+        }
+
+        .cattymod-card {
+            display: grid;
+            grid-template-columns: 110px minmax(0, 1fr);
+            align-items: center;
+            gap: 28px;
+            padding: 34px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: white;
+            box-shadow: 0 4px 18px #00000006;
+        }
+
+        .cattymod-logo-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .cattymod-logo {
+            display: block;
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+        }
+
+        .cattymod-content {
+            min-width: 0;
+        }
+
+        .cattymod-content h2 {
+            margin: 0 0 12px;
+            color: #4b5064;
+            font-size: clamp(25px, 3.5vw, 32px);
+            line-height: 1.25;
+            letter-spacing: -.7px;
+        }
+
+        .cattymod-content p {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .cattymod-content p:last-of-type {
+            margin-bottom: 22px;
+        }
+
+        .cattymod-content strong {
+            color: #4b5064;
+        }
+
+        .cattymod-content .cattymod-link {
+            color: #3785e8;
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: #3785e850;
+            text-underline-offset: 3px;
+        }
+
+        .cattymod-content .cattymod-link:hover {
+            color: #1765c6;
+        }
+
+        .button-cattymod {
+            color: #8b5900;
+            background: #ffab19;
+            box-shadow: 0 4px 0 #ec9b12;
+        }
+
+        .button-cattymod:hover {
+            background: #ffc04d;
+            box-shadow: 0 6px 0 #ec9b12;
+        }
+
         /* Start section */
 
         .start-section {
@@ -493,7 +456,8 @@
             text-align: center;
         }
 
-        .start-card::before, .start-card::after {
+        .start-card::before,
+        .start-card::after {
             content: "";
             position: absolute;
             width: 160px;
@@ -501,6 +465,7 @@
             border-radius: 13px;
             background: #ffffff12;
             transform: rotate(-25deg);
+            pointer-events: none;
         }
 
         .start-card::before {
@@ -535,11 +500,12 @@
 
         .credits-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 22px;
         }
 
         .info-card {
+            min-width: 0;
             padding: 26px;
             border: 1px solid var(--border);
             border-radius: var(--radius);
@@ -633,14 +599,14 @@
             color: var(--orange-dark);
         }
 
-        /* Responsive layout */
+        /* Tablet layout */
 
         @media (max-width: 800px) {
             .hero-inner {
-                grid-template-columns: 1fr;
-                gap: 15px;
-                padding-top: 65px;
-                padding-bottom: 35px;
+                grid-template-columns: minmax(0, 1fr);
+                gap: 28px;
+                min-height: 0;
+                padding: 55px 24px 38px;
             }
 
             .hero-copy {
@@ -656,11 +622,10 @@
                 justify-content: center;
             }
 
-            .block-scene {
-                min-height: 310px;
-                max-width: 440px;
+            .hero-video {
                 width: 100%;
-                margin: auto;
+                max-width: 560px;
+                justify-self: center;
             }
 
             .features {
@@ -669,7 +634,7 @@
 
             .feature-card {
                 display: grid;
-                grid-template-columns: 55px 1fr;
+                grid-template-columns: 55px minmax(0, 1fr);
                 column-gap: 15px;
                 padding: 21px;
             }
@@ -681,6 +646,23 @@
 
             .feature-card h3 {
                 align-self: end;
+            }
+
+            .cattymod-section {
+                padding-bottom: 58px;
+            }
+
+            .cattymod-card {
+                grid-template-columns: 1fr;
+                justify-items: center;
+                gap: 18px;
+                padding: 28px 23px;
+                text-align: center;
+            }
+
+            .cattymod-logo {
+                width: 84px;
+                height: 84px;
             }
 
             .credits-grid {
@@ -695,6 +677,8 @@
                 padding-bottom: 58px;
             }
         }
+
+        /* Mobile layout */
 
         @media (max-width: 520px) {
             .nav-inner {
@@ -727,11 +711,12 @@
             }
 
             .hero-inner {
-                padding: 52px 19px 30px;
+                padding: 42px 17px 30px;
+                gap: 26px;
             }
 
             .hero h1 {
-                font-size: 43px;
+                font-size: clamp(34px, 10vw, 43px);
                 letter-spacing: -1.5px;
             }
 
@@ -739,24 +724,26 @@
                 font-size: 15px;
             }
 
-            .block-scene {
-                min-height: 280px;
-                transform: scale(.93);
-                transform-origin: top center;
-                margin-bottom: -15px;
+            .eyebrow {
+                font-size: 10px;
+                letter-spacing: .3px;
             }
 
-            .block {
-                padding: 13px;
-                font-size: 12px;
+            .hero-actions {
+                gap: 12px;
             }
 
-            .scratch-window {
-                width: 205px;
+            .hero-actions .button {
+                max-width: 100%;
+                padding: 12px 15px;
+                font-size: 13px;
             }
 
-            .stage {
-                height: 140px;
+            .hero-video {
+                width: 100%;
+                max-width: none;
+                aspect-ratio: 16 / 9;
+                border-radius: 9px;
             }
 
             .container {
@@ -771,8 +758,29 @@
                 padding: 19px;
             }
 
+            .cattymod-card {
+                padding: 24px 19px;
+            }
+
+            .cattymod-content h2 {
+                font-size: 27px;
+            }
+
+            .cattymod-content p {
+                font-size: 14px;
+            }
+
             .start-card {
                 padding: 35px 20px;
+            }
+
+            .start-card .button {
+                max-width: 100%;
+                white-space: normal;
+            }
+
+            .info-card {
+                padding: 21px;
             }
 
             .footer-inner {
@@ -780,14 +788,52 @@
                 flex-direction: column;
                 align-items: flex-start;
             }
+
+            .footer-links {
+                gap: 14px;
+            }
         }
+
+        /* Extra-small phones */
+
+        @media (max-width: 360px) {
+            .brand {
+                font-size: 13px;
+            }
+
+            .nav-links .nav-start {
+                padding: 7px;
+                font-size: 11px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .hero-actions .button {
+                width: 100%;
+            }
+
+            .cattymod-card {
+                padding: 22px 16px;
+            }
+        }
+
+        /* Reduced motion */
 
         @media (prefers-reduced-motion: reduce) {
             html {
                 scroll-behavior: auto;
             }
 
-            *, *::before, *::after {
+            *,
+            *::before,
+            *::after {
                 animation-duration: .01ms !important;
                 animation-iteration-count: 1 !important;
                 transition-duration: .01ms !important;
@@ -805,6 +851,8 @@
                 <img
                     src="https://scratch2.cattymod.app/appicons/AppIcon128.png"
                     alt=""
+                    width="36"
+                    height="36"
                 >
                 <span>Scratch 2 Legacy</span>
             </a>
@@ -831,8 +879,7 @@
                         The classic editor, brought back
                     </div>
 
-                    <h1>Rediscover <span>Scratch 2.</span></h1>
-
+                    <h1>Rediscover<br><span>Scratch 2.</span></h1>
                     <p>
                         Remember the classic Scratch editor?
                         Bring back the nostalgia and create, explore,
@@ -857,8 +904,19 @@
                     </div>
                 </div>
 
-                <!-- Decorative Scratch editor illustration -->
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/-SjuiawRMU4?si=Ks8W9E_WvUFZcjI8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <!-- Responsive YouTube video -->
+                <div class="hero-video">
+                    <iframe
+                        src="https://www.youtube.com/embed/-SjuiawRMU4?si=Ks8W9E_WvUFZcjI8"
+                        title="Scratch 2 Legacy video"
+                        loading="lazy"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen
+                    ></iframe>
+                </div>
+
+            </div>
         </section>
 
         <!-- Features -->
@@ -904,6 +962,66 @@
                             Scratch 2 experience.
                         </p>
                     </article>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Made by CattyMod -->
+        <section class="cattymod-section" id="cattymod">
+            <div class="container">
+
+                <div class="cattymod-card">
+
+                    <a
+                        class="cattymod-logo-link"
+                        href="https://cattymod.app/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Visit CattyMod"
+                    >
+                        <img
+                            class="cattymod-logo"
+                            src="https://cattymod.app/assets/cattymod.svg"
+                            alt="CattyMod logo"
+                            width="100"
+                            height="100"
+                        >
+                    </a>
+
+                    <div class="cattymod-content">
+                        <h2>Made by CattyMod</h2>
+
+                        <p>
+                            Scratch 2 Legacy is made by
+                            <a
+                                class="cattymod-link"
+                                href="https://cattymod.app/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >CattyMod</a>,
+                            a Scratch mod that supercharges projects
+                            with powerful features to make them run
+                            faster and better.
+                        </p>
+
+                        <p>
+                            <strong>Different editor, same creator.</strong>
+                            CattyMod is a Scratch 3 mod, not a Scratch 2
+                            editor. Scratch 2 Legacy is a separate project
+                            that brings back the classic Scratch 2 experience
+                            in your browser.
+                        </p>
+
+                        <a
+                            class="button button-cattymod"
+                            href="https://cattymod.app/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            Explore CattyMod ↗
+                        </a>
+                    </div>
 
                 </div>
             </div>
@@ -1064,6 +1182,7 @@
             <div class="footer-links">
                 <a href="#home">Home</a>
                 <a href="#features">Features</a>
+                <a href="#cattymod">CattyMod</a>
                 <a href="#credits">Credits</a>
                 <a href="LICENSE">MIT License</a>
             </div>

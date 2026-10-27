@@ -1,330 +1,285 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Scratch 2 Legacy</title>
-
     <meta name="theme-color" content="#f7f7f7">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="apple-touch-icon" href="appicons/AppIcon128.png">
-
     <style>
-        html, body {
-            margin: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: transparent;
-            font-family: Arial, sans-serif;
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: transparent;
+        font-family: Arial, sans-serif;
+      }
+
+      #ruffle {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+      }
+
+      /* Clickable Home hotspot */
+      #homeHotspot {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 82px;
+        height: 30px;
+        z-index: 10001;
+        pointer-events: auto;
+        background: transparent;
+      }
+
+      /* Link cursor over the Home area */
+      html.home-hover,
+      html.home-hover body,
+      html.home-hover body *,
+      html.home-hover body canvas,
+      html.home-hover body ruffle-player {
+        cursor: pointer !important;
+      }
+
+      #homeHotspot[hidden],
+      #homeTooltip[hidden] {
+        display: none !important;
+      }
+
+      /* Scratch 2-style tooltip */
+      #homeTooltip {
+        position: fixed;
+        top: 34px;
+        left: 12px;
+        z-index: 10002;
+        padding: 6px 10px;
+        border-radius: 5px;
+        background: #333;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 16px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-3px);
+        pointer-events: none;
+        transition:
+          opacity 0.12s ease,
+          transform 0.12s ease,
+          visibility 0.12s;
+      }
+
+      #homeTooltip::before {
+        content: "";
+        position: absolute;
+        left: 12px;
+        top: -6px;
+        width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 7px solid #333;
+        margin-bottom: -1px;
+      }
+
+      #homeTooltip.visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+
+      /* Boot screen */
+      #boot {
+        position: fixed;
+        inset: 0;
+        background: #f7f7f7;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      #bootIcon {
+        width: 96px;
+        height: 96px;
+        border-radius: 16px;
+        margin-bottom: 18px;
+      }
+
+      #bootTitle {
+        font-size: 28px;
+        font-weight: bold;
+        color: #ffab19;
+        margin-bottom: 20px;
+      }
+
+      #barContainer {
+        width: 220px;
+        height: 10px;
+        background: #ddd;
+        border-radius: 6px;
+        overflow: hidden;
+      }
+
+      #bar {
+        width: 40%;
+        height: 100%;
+        background: #ffab19;
+        animation: load 1.2s infinite ease-in-out;
+      }
+
+      @keyframes load {
+        0% {
+          transform: translateX(-120%);
         }
 
-        #ruffle {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            margin: 0;
-            padding: 0;
-            background: transparent;
+        100% {
+          transform: translateX(300%);
         }
+      }
 
-        /* Clickable Home hotspot */
-        #homeHotspot {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 75px;
-            height: 30px;
-            z-index: 10001;
-            pointer-events: auto;
-            background: transparent;
-        }
+      #status {
+        margin-top: 14px;
+        font-size: 12px;
+        color: #666;
+      }
 
-        /* Link cursor over the Home area */
-        html.home-hover,
-        html.home-hover body,
-        html.home-hover body *,
-        html.home-hover body canvas,
-        html.home-hover body ruffle-player {
-            cursor: pointer !important;
-        }
+      #powered {
+        margin-top: 10px;
+        font-size: 11px;
+        color: #888;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
 
-        /* Scratch 2-style tooltip */
-        #homeTooltip {
-            position: fixed;
-            top: 34px;
-            left: 12px;
-            z-index: 10002;
-            padding: 6px 10px;
-            border-radius: 5px;
-            background: #333;
-            color: #fff;
-            font-family: Arial, sans-serif;
-            font-size: 12px;
-            font-weight: normal;
-            line-height: 16px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(-3px);
-            pointer-events: none;
-            transition:
-                opacity 0.12s ease,
-                transform 0.12s ease,
-                visibility 0.12s;
-        }
-
-        #homeTooltip::before {
-            content: "";
-            position: absolute;
-            left: 12px;
-            top: -6px;
-            width: 0;
-            height: 0;
-            border-left: 6px solid transparent;
-            border-right: 6px solid transparent;
-            border-bottom: 7px solid #333;
-            margin-bottom: -1px;
-        }
-
-        #homeTooltip.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* Boot screen */
-        #boot {
-            position: fixed;
-            inset: 0;
-            background: #f7f7f7;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        #bootIcon {
-            width: 96px;
-            height: 96px;
-            border-radius: 16px;
-            margin-bottom: 18px;
-        }
-
-        #bootTitle {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffab19;
-            margin-bottom: 20px;
-        }
-
-        #barContainer {
-            width: 220px;
-            height: 10px;
-            background: #ddd;
-            border-radius: 6px;
-            overflow: hidden;
-        }
-
-        #bar {
-            width: 40%;
-            height: 100%;
-            background: #ffab19;
-            animation: load 1.2s infinite ease-in-out;
-        }
-
-        @keyframes load {
-            0% {
-                transform: translateX(-120%);
-            }
-            100% {
-                transform: translateX(300%);
-            }
-        }
-
-        #status {
-            margin-top: 14px;
-            font-size: 12px;
-            color: #666;
-        }
-
-        #powered {
-            margin-top: 10px;
-            font-size: 11px;
-            color: #888;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        #powered img {
-            width: auto;
-            height: 14px;
-        }
+      #powered img {
+        width: auto;
+        height: 14px;
+      }
     </style>
-
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
-</head>
-
-<body>
+  </head>
+  <body>
     <!-- Dedicated clickable Home hotspot -->
-    <div
-        id="homeHotspot"
-        title=""
-        aria-label="Home"
-        role="link"
-        tabindex="0"
-    ></div>
-
+    <div id="homeHotspot" title="" aria-label="Home" role="link" tabindex="0" hidden></div>
     <!-- Home tooltip -->
     <div id="homeTooltip" role="tooltip">Home</div>
-
     <!-- Boot screen -->
     <div id="boot">
-        <img
-            id="bootIcon"
-            src="https://scratch2.cattymod.app/appicons/AppIcon128.png"
-            alt=""
-        >
-
-        <div id="bootTitle">Scratch 2 Legacy</div>
-
-        <div id="barContainer">
-            <div id="bar"></div>
-        </div>
-
-        <div id="status">Starting Editor...</div>
-
-        <div id="powered">
-            <span>Powered by</span>
-            <img src="https://ruffle.rs/demo/logo.svg" alt="Ruffle">
-        </div>
+      <img id="bootIcon" src="https://scratch2.cattymod.app/appicons/AppIcon128.png" alt="">
+      <div id="bootTitle">Scratch 2 Legacy</div>
+      <div id="barContainer">
+        <div id="bar"></div>
+      </div>
+      <div id="status">Starting Editor...</div>
+      <div id="powered">
+        <span>Powered by</span>
+        <img src="https://ruffle.rs/demo/logo.svg" alt="Ruffle">
+      </div>
     </div>
-
     <!-- Ruffle player -->
     <div id="ruffle"></div>
-
     <script>
-        const HOME_URL = "https://scratch2.cattymod.app";
-        const TOOLTIP_DELAY = 500;
+      const HOME_URL = "https://scratch2.cattymod.app";
+      const TOOLTIP_DELAY = 500;
+      const homeHotspot = document.getElementById("homeHotspot");
+      const tooltip = document.getElementById("homeTooltip");
+      let tooltipTimer = null;
+      let isHomeHovered = false;
 
-        const homeHotspot = document.getElementById("homeHotspot");
-        const tooltip = document.getElementById("homeTooltip");
-
-        let tooltipTimer = null;
-        let isHomeHovered = false;
-
-        function setHomeHover(hovered) {
-            if (hovered === isHomeHovered) {
-                return;
-            }
-
-            isHomeHovered = hovered;
-
-            document.documentElement.classList.toggle(
-                "home-hover",
-                hovered
-            );
-
-            clearTimeout(tooltipTimer);
-
-            if (hovered) {
-                tooltipTimer = setTimeout(() => {
-                    if (isHomeHovered) {
-                        tooltip.classList.add("visible");
-                    }
-                }, TOOLTIP_DELAY);
-            } else {
-                tooltip.classList.remove("visible");
-            }
+      function setHomeHover(hovered) {
+        if (hovered === isHomeHovered) {
+          return;
         }
-
-        // Home hotspot hover and tooltip.
-        homeHotspot.addEventListener("mouseenter", () => {
-            setHomeHover(true);
-        });
-
-        homeHotspot.addEventListener("mouseleave", () => {
-            setHomeHover(false);
-        });
-
-        // Only the dedicated Home hotspot navigates.
-        homeHotspot.addEventListener("click", () => {
-            window.location.assign(HOME_URL);
-        });
-
-        // Keyboard support for the Home hotspot.
-        homeHotspot.addEventListener("keydown", (event) => {
-            if (event.key === "Enter" || event.key === " ") {
-                event.preventDefault();
-                window.location.assign(HOME_URL);
+        isHomeHovered = hovered;
+        document.documentElement.classList.toggle("home-hover", hovered);
+        clearTimeout(tooltipTimer);
+        if (hovered) {
+          tooltipTimer = setTimeout(() => {
+            if (isHomeHovered) {
+              tooltip.classList.add("visible");
             }
-        });
-
-        // Hide tooltip when the pointer leaves the browser window.
-        document.addEventListener("mouseleave", () => {
-            setHomeHover(false);
-        });
-
-        // Initialize Ruffle.
-        window.addEventListener("load", async () => {
-            try {
-                if (!window.RufflePlayer) {
-                    throw new Error("Ruffle failed to initialize.");
-                }
-
-                const ruffle = window.RufflePlayer.newest();
-                const player = ruffle.createPlayer();
-
-                player.style.position = "absolute";
-                player.style.top = "0";
-                player.style.left = "0";
-                player.style.width = "100vw";
-                player.style.height = "100vh";
-                player.style.margin = "0";
-                player.style.padding = "0";
-
-                document.getElementById("ruffle").appendChild(player);
-
-                const response = await fetch(
-                    "https://scratch2.cattymod.app/scratch.swf"
-                );
-
-                if (!response.ok) {
-                    throw new Error("HTTP " + response.status);
-                }
-
-                const blob = await response.blob();
-                const url = URL.createObjectURL(blob);
-
-                await player.load(url);
-                player.play();
-
-                setTimeout(() => {
-                    const boot = document.getElementById("boot");
-
-                    if (!boot) {
-                        return;
-                    }
-
-                    boot.style.transition = "opacity 0.4s ease";
-                    boot.style.opacity = "0";
-
-                    setTimeout(() => {
-                        boot.remove();
-                    }, 400);
-                }, 800);
-
-            } catch (error) {
-                console.error("Failed to load Scratch 2:", error);
-
-                document.getElementById("status").textContent =
-                    "Failed to load Scratch 2. Check the console.";
+          }, TOOLTIP_DELAY);
+        } else {
+          tooltip.classList.remove("visible");
+        }
+      }
+      // Home hotspot hover and tooltip.
+      homeHotspot.addEventListener("mouseenter", () => {
+        setHomeHover(true);
+      });
+      homeHotspot.addEventListener("mouseleave", () => {
+        setHomeHover(false);
+      });
+      // Only the dedicated Home hotspot navigates.
+      homeHotspot.addEventListener("click", () => {
+        window.location.assign(HOME_URL);
+      });
+      // Keyboard support for the Home hotspot.
+      homeHotspot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          window.location.assign(HOME_URL);
+        }
+      });
+      // Hide tooltip when the pointer leaves the browser window.
+      document.addEventListener("mouseleave", () => {
+        setHomeHover(false);
+      });
+      // Initialize Ruffle.
+      window.addEventListener("load", async () => {
+        try {
+          if (!window.RufflePlayer) {
+            throw new Error("Ruffle failed to initialize.");
+          }
+          const ruffle = window.RufflePlayer.newest();
+          const player = ruffle.createPlayer();
+          player.style.position = "absolute";
+          player.style.top = "0";
+          player.style.left = "0";
+          player.style.width = "100vw";
+          player.style.height = "100vh";
+          player.style.margin = "0";
+          player.style.padding = "0";
+          document.getElementById("ruffle").appendChild(player);
+          const response = await fetch("https://scratch2.cattymod.app/scratch.swf");
+          if (!response.ok) {
+            throw new Error("HTTP " + response.status);
+          }
+          const blob = await response.blob();
+          const url = URL.createObjectURL(blob);
+          await player.load(url);
+          player.play();
+          setTimeout(() => {
+            const boot = document.getElementById("boot");
+            if (!boot) {
+              return;
             }
-        });
+            boot.style.transition = "opacity 0.4s ease";
+            boot.style.opacity = "0";
+            setTimeout(() => {
+              boot.remove();
+              // Enable the Home hotspot only after loading is complete.
+              homeHotspot.hidden = false;
+            }, 400);
+          }, 800);
+        } catch (error) {
+          console.error("Failed to load Scratch 2:", error);
+          document.getElementById("status").textContent = "Failed to load Scratch 2. Check the console.";
+        }
+      });
     </script>
-</body>
+  </body>
 </html>

@@ -424,11 +424,9 @@
       // Tips sidebar
       function openTips() {
         clearTimeout(sidebarTimer);
-        // Refresh the Tips page every time the sidebar opens.
-        const tipsFrame = document.getElementById("tipsFrame");
-        tipsFrame.src = tipsFrame.src;
         tipsSidebar.hidden = false;
         tipsSidebar.setAttribute("aria-hidden", "false");
+        sidebarWasOpened = true;
         requestAnimationFrame(() => {
           tipsSidebar.classList.add("open");
         });

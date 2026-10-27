@@ -12,6 +12,9 @@
     <link rel="apple-touch-icon" href="appicons/AppIcon128.png">
     <link rel="icon" href="https://scratch2.cattymod.app/appicons/AppIcon128.png">
 
+    <!-- Lucide icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         :root {
             --orange: #ffab19;
@@ -29,9 +32,7 @@
             --radius: 12px;
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         html {
             scroll-behavior: smooth;
@@ -47,22 +48,16 @@
             overflow-wrap: break-word;
         }
 
-        img,
-        iframe {
-            max-width: 100%;
-        }
+        img, iframe { max-width: 100%; }
 
         a {
             color: inherit;
             text-decoration: none;
         }
 
-        button, a {
-            -webkit-tap-highlight-color: transparent;
-        }
+        button, a { -webkit-tap-highlight-color: transparent; }
 
         /* Navigation */
-
         .navbar {
             position: sticky;
             top: 0;
@@ -113,21 +108,16 @@
             transition: background .2s;
         }
 
-        .nav-links a:hover {
-            background: #ffffff25;
-        }
+        .nav-links a:hover { background: #ffffff25; }
 
         .nav-links .nav-start {
             color: #8b5900;
             background: white;
         }
 
-        .nav-links .nav-start:hover {
-            background: #fff6e3;
-        }
+        .nav-links .nav-start:hover { background: #fff6e3; }
 
         /* Hero */
-
         .hero {
             position: relative;
             overflow: hidden;
@@ -149,9 +139,7 @@
             gap: 52px;
         }
 
-        .hero-copy {
-            min-width: 0;
-        }
+        .hero-copy { min-width: 0; }
 
         .hero h1 {
             margin: 0 0 18px;
@@ -161,9 +149,7 @@
             color: white;
         }
 
-        .hero h1 span {
-            color: #fff4c9;
-        }
+        .hero h1 span { color: #fff4c9; }
 
         .hero p {
             max-width: 560px;
@@ -221,9 +207,7 @@
             transition: transform .18s, box-shadow .18s, background .18s;
         }
 
-        .button:hover {
-            transform: translateY(-2px);
-        }
+        .button:hover { transform: translateY(-2px); }
 
         .button-primary {
             color: #8b5900;
@@ -242,9 +226,7 @@
             background: #ffffff12;
         }
 
-        .button-outline:hover {
-            background: #ffffff25;
-        }
+        .button-outline:hover { background: #ffffff25; }
 
         .hero-note {
             margin-top: 20px;
@@ -253,7 +235,6 @@
         }
 
         /* Responsive YouTube video */
-
         .hero-video {
             width: 100%;
             max-width: 560px;
@@ -274,7 +255,6 @@
         }
 
         /* Main content */
-
         .container {
             width: 100%;
             max-width: 1120px;
@@ -282,9 +262,7 @@
             padding: 0 24px;
         }
 
-        .section {
-            padding: 76px 0;
-        }
+        .section { padding: 76px 0; }
 
         .section-heading {
             margin-bottom: 38px;
@@ -307,7 +285,6 @@
         }
 
         /* Features */
-
         .features {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -337,12 +314,21 @@
             justify-content: center;
             margin-bottom: 18px;
             border-radius: 12px;
-            font-size: 24px;
         }
 
         .feature-icon.orange { background: #fff0d2; }
         .feature-icon.blue { background: #e5f0ff; }
         .feature-icon.green { background: #e3f8e3; }
+
+        .feature-icon svg {
+            width: 25px;
+            height: 25px;
+            stroke-width: 2.2;
+        }
+
+        .feature-icon.orange svg { color: #d88700; }
+        .feature-icon.blue svg { color: #3785e8; }
+        .feature-icon.green svg { color: #299b45; }
 
         .feature-card h3 {
             margin: 0 0 8px;
@@ -358,10 +344,7 @@
         }
 
         /* Made by CattyMod */
-
-        .cattymod-section {
-            padding: 0 0 76px;
-        }
+        .cattymod-section { padding: 0 0 76px; }
 
         .cattymod-card {
             display: grid;
@@ -389,9 +372,7 @@
             object-fit: contain;
         }
 
-        .cattymod-content {
-            min-width: 0;
-        }
+        .cattymod-content { min-width: 0; }
 
         .cattymod-content h2 {
             margin: 0 0 12px;
@@ -408,13 +389,9 @@
             line-height: 1.8;
         }
 
-        .cattymod-content p:last-of-type {
-            margin-bottom: 22px;
-        }
+        .cattymod-content p:last-of-type { margin-bottom: 22px; }
 
-        .cattymod-content strong {
-            color: #4b5064;
-        }
+        .cattymod-content strong { color: #4b5064; }
 
         .cattymod-content .cattymod-link {
             color: #3785e8;
@@ -424,9 +401,7 @@
             text-underline-offset: 3px;
         }
 
-        .cattymod-content .cattymod-link:hover {
-            color: #1765c6;
-        }
+        .cattymod-content .cattymod-link:hover { color: #1765c6; }
 
         .button-cattymod {
             color: #8b5900;
@@ -440,10 +415,7 @@
         }
 
         /* Start section */
-
-        .start-section {
-            padding: 0 0 76px;
-        }
+        .start-section { padding: 0 0 76px; }
 
         .start-card {
             position: relative;
@@ -467,10 +439,7 @@
             pointer-events: none;
         }
 
-        .start-card::before {
-            top: -30px;
-            left: -35px;
-        }
+        .start-card::before { top: -30px; left: -35px; }
 
         .start-card::after {
             right: -35px;
@@ -496,7 +465,6 @@
         }
 
         /* Credits */
-
         .credits-grid {
             display: grid;
             grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -520,6 +488,13 @@
             font-size: 19px;
         }
 
+        .info-card h3 svg {
+            width: 21px;
+            height: 21px;
+            flex-shrink: 0;
+            stroke-width: 2;
+        }
+
         .info-card p {
             margin: 0 0 12px;
             color: var(--muted);
@@ -527,9 +502,7 @@
             overflow-wrap: anywhere;
         }
 
-        .info-card p:last-child {
-            margin-bottom: 0;
-        }
+        .info-card p:last-child { margin-bottom: 0; }
 
         .info-card a {
             color: #3785e8;
@@ -539,9 +512,7 @@
             text-underline-offset: 3px;
         }
 
-        .info-card a:hover {
-            color: #1765c6;
-        }
+        .info-card a:hover { color: #1765c6; }
 
         .notice {
             margin-top: 22px;
@@ -554,7 +525,6 @@
         }
 
         /* Footer */
-
         footer {
             border-top: 1px solid var(--border);
             background: white;
@@ -594,12 +564,9 @@
             font-weight: 700;
         }
 
-        .footer-links a:hover {
-            color: var(--orange-dark);
-        }
+        .footer-links a:hover { color: var(--orange-dark); }
 
         /* Tablet layout */
-
         @media (max-width: 800px) {
             .hero-inner {
                 grid-template-columns: minmax(0, 1fr);
@@ -608,18 +575,14 @@
                 padding: 55px 24px 38px;
             }
 
-            .hero-copy {
-                text-align: center;
-            }
+            .hero-copy { text-align: center; }
 
             .hero p {
                 margin-left: auto;
                 margin-right: auto;
             }
 
-            .hero-actions {
-                justify-content: center;
-            }
+            .hero-actions { justify-content: center; }
 
             .hero-video {
                 width: 100%;
@@ -627,9 +590,7 @@
                 justify-self: center;
             }
 
-            .features {
-                grid-template-columns: 1fr;
-            }
+            .features { grid-template-columns: 1fr; }
 
             .feature-card {
                 display: grid;
@@ -643,13 +604,9 @@
                 margin: 0;
             }
 
-            .feature-card h3 {
-                align-self: end;
-            }
+            .feature-card h3 { align-self: end; }
 
-            .cattymod-section {
-                padding-bottom: 58px;
-            }
+            .cattymod-section { padding-bottom: 58px; }
 
             .cattymod-card {
                 grid-template-columns: 1fr;
@@ -664,21 +621,13 @@
                 height: 84px;
             }
 
-            .credits-grid {
-                grid-template-columns: 1fr;
-            }
+            .credits-grid { grid-template-columns: 1fr; }
 
-            .section {
-                padding: 58px 0;
-            }
-
-            .start-section {
-                padding-bottom: 58px;
-            }
+            .section { padding: 58px 0; }
+            .start-section { padding-bottom: 58px; }
         }
 
         /* Mobile layout */
-
         @media (max-width: 520px) {
             .nav-inner {
                 min-height: 58px;
@@ -696,18 +645,14 @@
                 height: 29px;
             }
 
-            .nav-links {
-                gap: 2px;
-            }
+            .nav-links { gap: 2px; }
 
             .nav-links a {
                 padding: 8px;
                 font-size: 12px;
             }
 
-            .nav-links a:not(.nav-start) {
-                display: none;
-            }
+            .nav-links a:not(.nav-start) { display: none; }
 
             .hero-inner {
                 padding: 42px 17px 30px;
@@ -719,18 +664,14 @@
                 letter-spacing: -1.5px;
             }
 
-            .hero p {
-                font-size: 15px;
-            }
+            .hero p { font-size: 15px; }
 
             .eyebrow {
                 font-size: 10px;
                 letter-spacing: .3px;
             }
 
-            .hero-actions {
-                gap: 12px;
-            }
+            .hero-actions { gap: 12px; }
 
             .hero-actions .button {
                 max-width: 100%;
@@ -745,42 +686,23 @@
                 border-radius: 9px;
             }
 
-            .container {
-                padding: 0 17px;
-            }
+            .container { padding: 0 17px; }
 
-            .section-heading {
-                margin-bottom: 27px;
-            }
+            .section-heading { margin-bottom: 27px; }
+            .feature-card { padding: 19px; }
+            .cattymod-card { padding: 24px 19px; }
 
-            .feature-card {
-                padding: 19px;
-            }
+            .cattymod-content h2 { font-size: 27px; }
+            .cattymod-content p { font-size: 14px; }
 
-            .cattymod-card {
-                padding: 24px 19px;
-            }
-
-            .cattymod-content h2 {
-                font-size: 27px;
-            }
-
-            .cattymod-content p {
-                font-size: 14px;
-            }
-
-            .start-card {
-                padding: 35px 20px;
-            }
+            .start-card { padding: 35px 20px; }
 
             .start-card .button {
                 max-width: 100%;
                 white-space: normal;
             }
 
-            .info-card {
-                padding: 21px;
-            }
+            .info-card { padding: 21px; }
 
             .footer-inner {
                 padding: 24px 18px;
@@ -788,47 +710,32 @@
                 align-items: flex-start;
             }
 
-            .footer-links {
-                gap: 14px;
-            }
+            .footer-links { gap: 14px; }
         }
 
         /* Extra-small phones */
-
         @media (max-width: 360px) {
-            .brand {
-                font-size: 13px;
-            }
+            .brand { font-size: 13px; }
 
             .nav-links .nav-start {
                 padding: 7px;
                 font-size: 11px;
             }
 
-            .hero h1 {
-                font-size: 34px;
-            }
+            .hero h1 { font-size: 34px; }
 
             .hero-actions {
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .hero-actions .button {
-                width: 100%;
-            }
-
-            .cattymod-card {
-                padding: 22px 16px;
-            }
+            .hero-actions .button { width: 100%; }
+            .cattymod-card { padding: 22px 16px; }
         }
 
         /* Reduced motion */
-
         @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
+            html { scroll-behavior: auto; }
 
             *,
             *::before,
@@ -842,7 +749,6 @@
 </head>
 
 <body>
-
     <!-- Navigation -->
     <header class="navbar">
         <nav class="nav-inner" aria-label="Main navigation">
@@ -867,11 +773,9 @@
     </header>
 
     <main>
-
         <!-- Hero -->
         <section class="hero" id="home">
             <div class="hero-inner">
-
                 <div class="hero-copy">
                     <div class="eyebrow">
                         <span class="status-dot"></span>
@@ -886,15 +790,14 @@
                     </p>
 
                     <div class="hero-actions">
-                        <a
-                            class="button button-primary"
-                            href="https://scratch2.cattymod.app/editor"
-                        >
-                            ▶ Start Scratching
+                        <a class="button button-primary" href="https://scratch2.cattymod.app/editor">
+                            <i data-lucide="play" aria-hidden="true"></i>
+                            Start Scratching
                         </a>
 
                         <a class="button button-outline" href="#features">
-                            Explore Features ↓
+                            <i data-lucide="arrow-down" aria-hidden="true"></i>
+                            Explore Features
                         </a>
                     </div>
 
@@ -914,14 +817,12 @@
                         allowfullscreen
                     ></iframe>
                 </div>
-
             </div>
         </section>
 
         <!-- Features -->
         <section class="section" id="features">
             <div class="container">
-
                 <div class="section-heading">
                     <h2>Classic Scratch. Modern Browser.</h2>
                     <p>
@@ -931,9 +832,10 @@
                 </div>
 
                 <div class="features">
-
                     <article class="feature-card">
-                        <div class="feature-icon orange">⚡</div>
+                        <div class="feature-icon orange">
+                            <i data-lucide="zap" aria-hidden="true"></i>
+                        </div>
                         <h3>Autoplay Support</h3>
                         <p>
                             The Scratch 2 Legacy player loads its SWF
@@ -943,7 +845,9 @@
                     </article>
 
                     <article class="feature-card">
-                        <div class="feature-icon blue">↗</div>
+                        <div class="feature-icon blue">
+                            <i data-lucide="maximize" aria-hidden="true"></i>
+                        </div>
                         <h3>Responsive Design</h3>
                         <p>
                             The player adapts to your browser window,
@@ -953,7 +857,9 @@
                     </article>
 
                     <article class="feature-card">
-                        <div class="feature-icon green">⛶</div>
+                        <div class="feature-icon green">
+                            <i data-lucide="monitor" aria-hidden="true"></i>
+                        </div>
                         <h3>Full-Screen Experience</h3>
                         <p>
                             Enjoy a spacious editor that scales with
@@ -961,17 +867,14 @@
                             Scratch 2 experience.
                         </p>
                     </article>
-
                 </div>
             </div>
         </section>
 
-        <!-- Made by CattyMod -->
+        <!-- Made by CattyMod: original logo intentionally preserved -->
         <section class="cattymod-section" id="cattymod">
             <div class="container">
-
                 <div class="cattymod-card">
-
                     <a
                         class="cattymod-logo-link"
                         href="https://cattymod.app/"
@@ -1018,10 +921,10 @@
                             target="_blank"
                             rel="noopener noreferrer"
                         >
-                            Explore CattyMod ↗
+                            Explore CattyMod
+                            <i data-lucide="external-link" aria-hidden="true"></i>
                         </a>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -1032,18 +935,15 @@
                 <div class="start-card">
                     <div class="start-card-content">
                         <h2>Ready to start scratching?</h2>
-
                         <p>
                             Jump straight into Scratch 2 Legacy.
                             Revisit the classic editor and explore
                             its block-based creative environment.
                         </p>
 
-                        <a
-                            class="button button-primary"
-                            href="https://scratch2.cattymod.app/editor"
-                        >
-                            Open Scratch 2 Legacy ↗
+                        <a class="button button-primary" href="https://scratch2.cattymod.app/editor">
+                            Open Scratch 2 Legacy
+                            <i data-lucide="external-link" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -1053,7 +953,6 @@
         <!-- Credits and License -->
         <section class="section" id="credits">
             <div class="container">
-
                 <div class="section-heading">
                     <h2>Credits &amp; Information</h2>
                     <p>
@@ -1063,9 +962,11 @@
                 </div>
 
                 <div class="credits-grid">
-
                     <article class="info-card">
-                        <h3>✦ Project Credits</h3>
+                        <h3>
+                            <i data-lucide="award" aria-hidden="true"></i>
+                            Project Credits
+                        </h3>
 
                         <p>
                             <strong>SWF source:</strong>
@@ -1073,33 +974,18 @@
                                 href="https://scratch.mit.edu/scratchr2/static/Scratch.swf"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                            >
-                                scratch.swf on scratch.mit.edu
-                            </a>
+                            >scratch.swf on scratch.mit.edu</a>
                         </p>
 
                         <p>
                             <strong>Flash emulator:</strong>
-                            <a
-                                href="https://ruffle.rs/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Ruffle
-                            </a>
+                            <a href="https://ruffle.rs/" target="_blank" rel="noopener noreferrer">Ruffle</a>
                         </p>
 
                         <p>
                             <strong>Scratch development:</strong>
-                            The Lifelong Kindergarten Group at the
-                            MIT Media Lab.
-                            <a
-                                href="https://scratch.mit.edu/"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Scratch website
-                            </a>
+                            The Lifelong Kindergarten Group at the MIT Media Lab.
+                            <a href="https://scratch.mit.edu/" target="_blank" rel="noopener noreferrer">Scratch website</a>
                         </p>
 
                         <p>
@@ -1108,14 +994,21 @@
                                 href="https://github.com/scratchfoundation/scratch-flash"
                                 target="_blank"
                                 rel="noopener noreferrer"
-                            >
-                                scratchfoundation/scratch-flash
-                            </a>
+                            >scratchfoundation/scratch-flash</a>
+                        </p>
+
+                        <p>
+                            <strong>Icons:</strong>
+                            <a href="https://lucide.dev/" target="_blank" rel="noopener noreferrer">Lucide</a>,
+                            an open-source icon library.
                         </p>
                     </article>
 
                     <article class="info-card">
-                        <h3>ⓘ About This Project</h3>
+                        <h3>
+                            <i data-lucide="info" aria-hidden="true"></i>
+                            About This Project
+                        </h3>
 
                         <p>
                             ScratchCat, Pico, Giga, Gobo, Tera, Nano,
@@ -1133,11 +1026,8 @@
                             open-source and available under the MIT License.
                         </p>
 
-                        <p>
-                            <a href="LICENSE">Read the MIT License ↗</a>
-                        </p>
+                        <p><a href="LICENSE">Read the MIT License ↗</a></p>
                     </article>
-
                 </div>
 
                 <div class="notice">
@@ -1147,23 +1037,16 @@
                     their respective owners. This project is not an
                     official Scratch Foundation product.
                 </div>
-
             </div>
         </section>
-
     </main>
 
     <!-- Footer -->
     <footer>
         <div class="footer-inner">
-
             <div>
-                <div class="footer-brand">
-                    Scratch 2 Legacy
-                </div>
-                <div class="footer-copy">
-                    A little piece of Scratch history.
-                </div>
+                <div class="footer-brand">Scratch 2 Legacy</div>
+                <div class="footer-copy">A little piece of Scratch history.</div>
             </div>
 
             <div class="footer-links">
@@ -1174,12 +1057,12 @@
                 <a href="LICENSE">MIT License</a>
             </div>
 
-            <div class="footer-copy">
-                Powered by Ruffle
-            </div>
-
+            <div class="footer-copy">Powered by Ruffle</div>
         </div>
     </footer>
 
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

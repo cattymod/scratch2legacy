@@ -1,3 +1,0 @@
-Ruffle Licence Notice
-
-Ruffle is dual-licenced (Apache License 2.0 and MIT Licence)

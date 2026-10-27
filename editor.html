@@ -28,7 +28,7 @@
         background: transparent;
       }
 
-      /* Clickable Home hotspot */
+      /* Home hotspot */
       #homeHotspot {
         position: fixed;
         top: 0;
@@ -40,25 +40,60 @@
         background: transparent;
       }
 
-      /* Link cursor over the Home area */
-      html.home-hover,
-      html.home-hover body,
-      html.home-hover body *,
-      html.home-hover body canvas,
-      html.home-hover body ruffle-player {
-        cursor: pointer !important;
+      /* Tips hotspot: half the Home hotspot width */
+      #tipsHotspot {
+        position: fixed;
+        top: 0;
+        left: 212px;
+        width: 44px;
+        height: 30px;
+        z-index: 10001;
+        pointer-events: auto;
+        background: transparent;
+      }
+
+      /* About hotspot: half the Home hotspot width */
+      #aboutHotspot {
+        position: fixed;
+        top: 0;
+        left: 250px;
+        width: 41px;
+        height: 30px;
+        z-index: 10001;
+        pointer-events: auto;
+        background: transparent;
+      }
+
+      #homeHotspot,
+      #tipsHotspot,
+      #aboutHotspot {
+        cursor: pointer;
       }
 
       #homeHotspot[hidden],
-      #homeTooltip[hidden] {
+      #tipsHotspot[hidden],
+      #aboutHotspot[hidden],
+      #homeTooltip[hidden],
+      #tipsTooltip[hidden],
+      #aboutTooltip[hidden] {
         display: none !important;
       }
 
-      /* Scratch 2-style tooltip */
-      #homeTooltip {
+      /* Pointer cursor while hovering over hotspots */
+      html.hotspot-hover,
+      html.hotspot-hover body,
+      html.hotspot-hover body *,
+      html.hotspot-hover body canvas,
+      html.hotspot-hover body ruffle-player {
+        cursor: pointer !important;
+      }
+
+      /* Scratch-style tooltips */
+      #homeTooltip,
+      #tipsTooltip,
+      #aboutTooltip {
         position: fixed;
         top: 34px;
-        left: 12px;
         z-index: 10002;
         padding: 6px 10px;
         border-radius: 5px;
@@ -79,7 +114,21 @@
           visibility 0.12s;
       }
 
-      #homeTooltip::before {
+      #homeTooltip {
+        left: 12px;
+      }
+
+      #tipsTooltip {
+        left: 215px;
+      }
+
+      #aboutTooltip {
+        left: 250px;
+      }
+
+      #homeTooltip::before,
+      #tipsTooltip::before,
+      #aboutTooltip::before {
         content: "";
         position: absolute;
         left: 12px;
@@ -92,10 +141,86 @@
         margin-bottom: -1px;
       }
 
-      #homeTooltip.visible {
+      #homeTooltip.visible,
+      #tipsTooltip.visible,
+      #aboutTooltip.visible {
         opacity: 1;
         visibility: visible;
         transform: translateY(0);
+      }
+
+      /* Tips sidebar */
+      #tipsSidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: min(315px, 90vw);
+        height: 100vh;
+        height: 100dvh;
+        z-index: 10010;
+        background: #fff;
+        box-shadow: -4px 0 16px rgba(0, 0, 0, 0.25);
+        display: flex;
+        flex-direction: column;
+        transform: translateX(100%);
+        visibility: hidden;
+        transition:
+          transform 0.25s ease,
+          visibility 0.25s;
+      }
+
+      #tipsSidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+      }
+
+      #tipsSidebar[hidden] {
+        display: none !important;
+      }
+
+      #tipsSidebarHeader {
+        min-height: 48px;
+        box-sizing: border-box;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 12px;
+        background: #626366;
+        color: #fff;
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      #closeTips {
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: #fff;
+        font-size: 26px;
+        cursor: pointer;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #closeTips:hover {
+        background: rgba(0, 0, 0, 0.12);
+      }
+
+      #closeTips:focus-visible {
+        outline: 2px solid #fff;
+        outline-offset: -4px;
+      }
+
+      #tipsFrame {
+        width: 100%;
+        flex: 1;
+        min-height: 0;
+        border: 0;
+        background: #fff;
       }
 
       /* Boot screen */
@@ -168,14 +293,40 @@
         width: auto;
         height: 14px;
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        #tipsSidebar {
+          transition: none;
+        }
+
+        #homeTooltip,
+        #tipsTooltip,
+        #aboutTooltip {
+          transition: none;
+        }
+      }
     </style>
     <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
   </head>
   <body>
-    <!-- Dedicated clickable Home hotspot -->
-    <div id="homeHotspot" title="" aria-label="Home" role="link" tabindex="0" hidden></div>
-    <!-- Home tooltip -->
-    <div id="homeTooltip" role="tooltip">Home</div>
+    <!-- Home hotspot -->
+    <div id="homeHotspot" aria-label="Home" role="link" tabindex="0" hidden></div>
+    <!-- Tips hotspot -->
+    <div id="tipsHotspot" aria-label="Tips" role="button" tabindex="0" hidden></div>
+    <!-- About hotspot -->
+    <div id="aboutHotspot" aria-label="About Scratch" role="link" tabindex="0" hidden></div>
+    <!-- Hotspot tooltips -->
+    <div id="homeTooltip" role="tooltip" hidden>Home</div>
+    <div id="tipsTooltip" role="tooltip" hidden>Scratch Tips</div>
+    <div id="aboutTooltip" role="tooltip" hidden>About Scratch</div>
+    <!-- Tips sidebar -->
+    <aside id="tipsSidebar" aria-label="Scratch Tips" aria-hidden="true" hidden>
+      <div id="tipsSidebarHeader">
+        <span>Tips</span>
+        <button id="closeTips" type="button" aria-label="Close Tips">&times;</button>
+      </div>
+      <iframe id="tipsFrame" title="Scratch Tips" src="https://proxy.webtoppings.bar/+iframe-demo?url=https://scratch.mit.edu/help/studio/tips/home/" loading="lazy"></iframe>
+    </aside>
     <!-- Boot screen -->
     <div id="boot">
       <img id="bootIcon" src="https://scratch2.cattymod.app/appicons/AppIcon128.png" alt="">
@@ -193,52 +344,124 @@
     <div id="ruffle"></div>
     <script>
       const HOME_URL = "https://scratch2.cattymod.app";
+      const ABOUT_URL = "https://scratch.mit.edu";
       const TOOLTIP_DELAY = 500;
       const homeHotspot = document.getElementById("homeHotspot");
-      const tooltip = document.getElementById("homeTooltip");
+      const tipsHotspot = document.getElementById("tipsHotspot");
+      const aboutHotspot = document.getElementById("aboutHotspot");
+      const homeTooltip = document.getElementById("homeTooltip");
+      const tipsTooltip = document.getElementById("tipsTooltip");
+      const aboutTooltip = document.getElementById("aboutTooltip");
+      const tipsSidebar = document.getElementById("tipsSidebar");
+      const closeTips = document.getElementById("closeTips");
       let tooltipTimer = null;
-      let isHomeHovered = false;
+      let hoveredHotspot = null;
+      let sidebarTimer = null;
+      let sidebarWasOpened = false;
+      const hotspotTooltips = new Map([
+        [homeHotspot, homeTooltip],
+        [tipsHotspot, tipsTooltip],
+        [aboutHotspot, aboutTooltip]
+      ]);
 
-      function setHomeHover(hovered) {
-        if (hovered === isHomeHovered) {
-          return;
-        }
-        isHomeHovered = hovered;
-        document.documentElement.classList.toggle("home-hover", hovered);
+      function setHotspotHover(hotspot) {
         clearTimeout(tooltipTimer);
-        if (hovered) {
-          tooltipTimer = setTimeout(() => {
-            if (isHomeHovered) {
-              tooltip.classList.add("visible");
-            }
-          }, TOOLTIP_DELAY);
-        } else {
+        hoveredHotspot = hotspot;
+        document.documentElement.classList.toggle("hotspot-hover", hotspot !== null);
+        for (const tooltip of hotspotTooltips.values()) {
           tooltip.classList.remove("visible");
         }
+        if (!hotspot) {
+          return;
+        }
+        const tooltip = hotspotTooltips.get(hotspot);
+        tooltipTimer = setTimeout(() => {
+          if (hoveredHotspot === hotspot) {
+            tooltip.hidden = false;
+            requestAnimationFrame(() => {
+              if (hoveredHotspot === hotspot) {
+                tooltip.classList.add("visible");
+              }
+            });
+          }
+        }, TOOLTIP_DELAY);
       }
-      // Home hotspot hover and tooltip.
-      homeHotspot.addEventListener("mouseenter", () => {
-        setHomeHover(true);
+      for (const hotspot of hotspotTooltips.keys()) {
+        hotspot.addEventListener("mouseenter", () => {
+          setHotspotHover(hotspot);
+        });
+        hotspot.addEventListener("mouseleave", () => {
+          if (hoveredHotspot === hotspot) {
+            setHotspotHover(null);
+          }
+        });
+      }
+      document.addEventListener("mouseleave", () => {
+        setHotspotHover(null);
       });
-      homeHotspot.addEventListener("mouseleave", () => {
-        setHomeHover(false);
-      });
-      // Only the dedicated Home hotspot navigates.
-      homeHotspot.addEventListener("click", () => {
+      // Home navigation
+      function goHome() {
         window.location.assign(HOME_URL);
-      });
-      // Keyboard support for the Home hotspot.
+      }
+      homeHotspot.addEventListener("click", goHome);
       homeHotspot.addEventListener("keydown", (event) => {
         if (event.key === "Enter" || event.key === " ") {
           event.preventDefault();
-          window.location.assign(HOME_URL);
+          goHome();
         }
       });
-      // Hide tooltip when the pointer leaves the browser window.
-      document.addEventListener("mouseleave", () => {
-        setHomeHover(false);
+      // About navigation
+      function goAbout() {
+        window.location.assign(ABOUT_URL);
+      }
+      aboutHotspot.addEventListener("click", goAbout);
+      aboutHotspot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          goAbout();
+        }
       });
-      // Initialize Ruffle.
+      // Tips sidebar
+      function openTips() {
+        clearTimeout(sidebarTimer);
+        // Refresh the Tips page every time the sidebar opens.
+        const tipsFrame = document.getElementById("tipsFrame");
+        tipsFrame.src = tipsFrame.src;
+        tipsSidebar.hidden = false;
+        tipsSidebar.setAttribute("aria-hidden", "false");
+        requestAnimationFrame(() => {
+          tipsSidebar.classList.add("open");
+        });
+      }
+
+      function hideTips() {
+        if (tipsSidebar.hidden) {
+          return;
+        }
+        tipsSidebar.classList.remove("open");
+        tipsSidebar.setAttribute("aria-hidden", "true");
+        clearTimeout(sidebarTimer);
+        sidebarTimer = setTimeout(() => {
+          if (!tipsSidebar.classList.contains("open")) {
+            tipsSidebar.hidden = true;
+          }
+        }, 250);
+      }
+      tipsHotspot.addEventListener("click", openTips);
+      tipsHotspot.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          openTips();
+        }
+      });
+      closeTips.addEventListener("click", hideTips);
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !tipsSidebar.hidden) {
+          hideTips();
+          tipsHotspot.focus();
+        }
+      });
+      // Initialize Ruffle
       window.addEventListener("load", async () => {
         try {
           if (!window.RufflePlayer) {
@@ -271,8 +494,10 @@
             boot.style.opacity = "0";
             setTimeout(() => {
               boot.remove();
-              // Enable the Home hotspot only after loading is complete.
+              // Enable all hotspots once loading completes.
               homeHotspot.hidden = false;
+              tipsHotspot.hidden = false;
+              aboutHotspot.hidden = false;
             }, 400);
           }, 800);
         } catch (error) {
